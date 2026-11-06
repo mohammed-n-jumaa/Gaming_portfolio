@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MOHAMMED.EXE — a playable portfolio
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 (static) · React 19 · TypeScript · GSAP + ScrollTrigger · Lenis · Canvas 2D · WebAudio.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # static production build (deploy to Vercel as-is)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## The idea
+The portfolio is a small game. A sticker version of Mohammed — cut out of his real photo in the browser,
+with a hinged jaw that talks and eyes that blink — greets every visitor, asks whether they want a guided tour,
+walks them level by level, tells programmer jokes and reacts to what they do.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Level | Section | Concept |
+|---|---|---|
+| 00 | Title screen | Synthwave sun + moving 3D grid, keyboard-driven game menu |
+| 01 | Character sheet | Holographic trading-card portrait, RPG stat bars, traits |
+| 02 | Inventory | Skills as loot with rarity (legendary / epic / rare), inspect panel |
+| 03 | Abilities | Services as holographic cards that tilt and flip |
+| 04 | Quest log | Projects as quests with generative, theme-reactive covers |
+| 05 | World map | Career as a winding road; Mohammed's head walks it as you scroll |
+| 06 | Console | Real shell + cheat codes (`iddqd`, `idkfa`, `joke`, `xp`…) |
+| 07 | Continue? | Arcade countdown screen with CRT scanlines = contact |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Game systems: XP + levels, 12 achievements with toasts, saved progress (localStorage),
+synthesised sounds (mute in the HUD), Konami code, confetti.
 
-## Learn More
+## Where things live
+- Copy & data: `src/lib/content.ts` (projects, jobs, links), `src/lib/dialogue.ts` (guide script, jokes, achievements) — English + Arabic.
+- Guide: `src/components/guide/` — `Puppet.tsx` (the character), `Guide.tsx` (dialogue engine + tour).
+- Game state: `src/lib/game.ts` · sounds: `src/lib/sfx.ts`.
+- Palettes: 7 themes in `src/app/globals.css` (switch with the dock, the **T** key, or `theme <id>` in the console).
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Swapping in an illustrated avatar
+`Puppet.tsx` draws the character from `PORTRAIT`. To use PNG poses instead (idle / talking / waving / pointing / laughing),
+replace the canvas with the images and map them to the `pose` + `talk()` calls already emitted by `Guide.tsx`.
